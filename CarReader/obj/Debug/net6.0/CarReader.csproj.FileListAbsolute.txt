@@ -1,0 +1,12 @@
+D:\MyC#\Tests\AsposeTest\CarReader\bin\Debug\net6.0\CarReader.deps.json
+D:\MyC#\Tests\AsposeTest\CarReader\bin\Debug\net6.0\CarReader.dll
+D:\MyC#\Tests\AsposeTest\CarReader\bin\Debug\net6.0\CarReader.pdb
+D:\MyC#\Tests\AsposeTest\CarReader\obj\Debug\net6.0\CarReader.csproj.AssemblyReference.cache
+D:\MyC#\Tests\AsposeTest\CarReader\obj\Debug\net6.0\CarReader.GeneratedMSBuildEditorConfig.editorconfig
+D:\MyC#\Tests\AsposeTest\CarReader\obj\Debug\net6.0\CarReader.AssemblyInfoInputs.cache
+D:\MyC#\Tests\AsposeTest\CarReader\obj\Debug\net6.0\CarReader.AssemblyInfo.cs
+D:\MyC#\Tests\AsposeTest\CarReader\obj\Debug\net6.0\CarReader.csproj.CoreCompileInputs.cache
+D:\MyC#\Tests\AsposeTest\CarReader\obj\Debug\net6.0\CarReader.dll
+D:\MyC#\Tests\AsposeTest\CarReader\obj\Debug\net6.0\refint\CarReader.dll
+D:\MyC#\Tests\AsposeTest\CarReader\obj\Debug\net6.0\CarReader.pdb
+D:\MyC#\Tests\AsposeTest\CarReader\obj\Debug\net6.0\ref\CarReader.dll

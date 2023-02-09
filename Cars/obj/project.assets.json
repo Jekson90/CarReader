@@ -1,0 +1,90 @@
+{
+  "version": 3,
+  "targets": {
+    "net6.0": {
+      "CarReader/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "compile": {
+          "bin/placeholder/CarReader.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/CarReader.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "CarReader/1.0.0": {
+      "type": "project",
+      "path": "../CarReader/CarReader.csproj",
+      "msbuildProject": "../CarReader/CarReader.csproj"
+    }
+  },
+  "projectFileDependencyGroups": {
+    "net6.0": [
+      "CarReader >= 1.0.0"
+    ]
+  },
+  "packageFolders": {
+    "C:\\Users\\Jekson\\.nuget\\packages\\": {}
+  },
+  "project": {
+    "version": "1.0.0",
+    "restore": {
+      "projectUniqueName": "D:\\MyC#\\Tests\\Cars\\Cars\\Cars.csproj",
+      "projectName": "Cars",
+      "projectPath": "D:\\MyC#\\Tests\\Cars\\Cars\\Cars.csproj",
+      "packagesPath": "C:\\Users\\Jekson\\.nuget\\packages\\",
+      "outputPath": "D:\\MyC#\\Tests\\Cars\\Cars\\obj\\",
+      "projectStyle": "PackageReference",
+      "configFilePaths": [
+        "C:\\Users\\Jekson\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+      ],
+      "originalTargetFrameworks": [
+        "net6.0"
+      ],
+      "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "https://api.nuget.org/v3/index.json": {}
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "projectReferences": {
+            "D:\\MyC#\\Tests\\Cars\\CarReader\\CarReader.csproj": {
+              "projectPath": "D:\\MyC#\\Tests\\Cars\\CarReader\\CarReader.csproj"
+            }
+          }
+        }
+      },
+      "warningProperties": {
+        "warnAsError": [
+          "NU1605"
+        ]
+      }
+    },
+    "frameworks": {
+      "net6.0": {
+        "targetAlias": "net6.0",
+        "imports": [
+          "net461",
+          "net462",
+          "net47",
+          "net471",
+          "net472",
+          "net48"
+        ],
+        "assetTargetFallback": true,
+        "warn": true,
+        "frameworkReferences": {
+          "Microsoft.NETCore.App": {
+            "privateAssets": "all"
+          }
+        },
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.201\\RuntimeIdentifierGraph.json"
+      }
+    }
+  }
+}
