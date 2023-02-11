@@ -1,14 +1,14 @@
 ﻿using CarReader.Interfaces;
-using CarReader.Models;
 using System.Text;
 
 namespace CarReader.Readers
 {
-    public class BinaryReader : ICarReader
+    public sealed class BinaryCarReader<T> : BaseCarReader<T> where T : ICar, new()
     {
         private readonly byte[] _header = { 0x25, 0x26 };
 
-        private string _path;
+        protected override ReaderType ReaderType { get => ReaderType.Car; }
+
         #region Property CheckBytes
         private int _bytes;
         private int CheckBytes
@@ -23,32 +23,28 @@ namespace CarReader.Readers
         #endregion
 
         #region Ctor
-        public BinaryReader(string path)
+        public BinaryCarReader() : base()
         {
-            _path = path;
+            SetDefaultFilePath();
         }
 
-        public BinaryReader()
-        {
-            Random r = new Random();
-            var i = r.Next(10000, 99999);
-            _path = i.ToString() + ".CAR";
-        }
+        public BinaryCarReader(string path) : base(path) { }
         #endregion
 
         #region Read / Write
-        private List<Car> Read()
-        {
-            using (var fStream = new FileStream(_path, FileMode.Open, FileAccess.Read))
+        protected override IEnumerable<T> Read()
+        {            
+            using (var fStream = new FileStream(FilePath, FileMode.Open, FileAccess.Read))
             {
                 byte[] buffer = new byte[2];
                 CheckBytes = fStream.Read(buffer, 0, 2);
+                if (buffer[0] != _header[0] || buffer[1] != _header[1])
+                    CheckBytes = 0;
 
                 buffer = new byte[4];
                 CheckBytes = fStream.Read(buffer, 0, 4);
                 int rowsCount = BitConverter.ToInt32(buffer, 0);
 
-                var cars = new List<Car>();
                 for (int i = 0; i < rowsCount; i++)
                 {
                     buffer = new byte[8];
@@ -69,29 +65,27 @@ namespace CarReader.Readers
                     CheckBytes = fStream.Read(buffer, 0, 4);
                     int price = BitConverter.ToInt32(buffer, 0);
 
-                    cars.Add(new Car()
+                    yield return new T()
                     {
                         Brand = brand,
                         Price = price,
                         Date = date
-                    });
+                    };
                 }
-
-                return cars;
             }
         }
 
-        private void Write(List<Car> cars)
+        protected override void Write(IEnumerable<T> cars)
         {
             if (cars == null)
                 throw new ArgumentNullException("Cars might be not null.");
 
-            using (var fStream = new FileStream(_path, FileMode.OpenOrCreate, FileAccess.ReadWrite))
+            using (var fStream = new FileStream(FilePath, FileMode.OpenOrCreate, FileAccess.ReadWrite))
             {
                 byte[] buffer = _header;
                 fStream.Write(buffer);
 
-                buffer = BitConverter.GetBytes(cars.Count);
+                buffer = BitConverter.GetBytes(cars.Count());
                 fStream.Write(buffer);
 
                 foreach (var car in cars)
@@ -100,7 +94,8 @@ namespace CarReader.Readers
                     buffer = BitConverter.GetBytes(date);
                     fStream.Write(buffer);
 
-                    buffer = BitConverter.GetBytes(car.Brand.Length);
+                    short brandLength = (short)car.Brand.Length;
+                    buffer = BitConverter.GetBytes(brandLength);
                     fStream.Write(buffer);
 
                     Encoding unicode = Encoding.Unicode;
@@ -112,49 +107,6 @@ namespace CarReader.Readers
                 }
             }
         }
-        #endregion
-
-        #region CRUD
-        public void AddCar(ICar car)
-        {
-            var cars = Read();
-            if (cars.Any(x => x.Brand == car.Brand))
-                throw new ArgumentException("Car with this brand already exists.");
-
-            cars.Add((Car)car);
-            Write(cars);
-        }
-
-        public ICar GetCar(string brand)
-        {
-            var cars = Read();
-            return cars.FirstOrDefault(x => x.Brand == brand);
-        }
-
-        public List<ICar> GetCars() => Read().Select(x => (ICar)x).ToList();
-
-        public void RemoveCar(ICar car)
-        {
-            var cars = Read();
-            var currentCar = cars.FirstOrDefault(x => x.Brand == car.Brand);
-            if (currentCar == null)
-                throw new ArgumentException("Removable car not found.");
-
-            cars.Remove(currentCar);
-            Write(cars);
-        }
-
-        public void UpdateCar(ICar car)
-        {
-            var cars = Read();
-            var currentCar = cars.FirstOrDefault(x => x.Brand == car.Brand);
-            if (currentCar == null)
-                throw new ArgumentException("Removable car not found.");
-
-            currentCar.Price = car.Price;
-            currentCar.Date = car.Date;
-            Write(cars);
-        } 
         #endregion
     }
 }

@@ -1,11 +1,11 @@
 ﻿namespace CarReader.Interfaces
 {
-    public interface ICarReader
+    public interface ICarReader<T> where T : ICar
     {
-        List<ICar> GetCars();
-        ICar GetCar(string brand);
-        void UpdateCar(ICar car);
-        void AddCar(ICar car);
-        void RemoveCar(ICar car);
+        IEnumerable<T> GetCars();
+        T GetCar(string brand);
+        void UpdateCars(IEnumerable<T> car);
+        void AddCars(IEnumerable<T> car);
+        void RemoveCars(IEnumerable<T> car);
     }
 }

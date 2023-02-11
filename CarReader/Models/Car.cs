@@ -17,12 +17,14 @@ namespace CarReader.Models
         {
             get => Date.ToString("dd.MM.yyyy");
             set => Date = DateTime.Parse(value);
-        } 
+        }
         #endregion
 
         public override string ToString()
         {
-            return $"Brand = {Brand}\nDate = {Date.ToString("dd.MM.yyyy")}\nPrice = {Price}";
+            return $"Brand = {Brand};\r\n" +
+                   $"Date = {Date.ToString("dd.MM.yyyy")};\r\n" +
+                   $"Price = {Price}";
         }
     }
 }

@@ -882,6 +882,16 @@
         "runtime": {
           "lib/netstandard1.3/System.Xml.XDocument.dll": {}
         }
+      },
+      "CarReader/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "compile": {
+          "bin/placeholder/CarReader.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/CarReader.dll": {}
+        }
       }
     }
   },
@@ -3813,10 +3823,16 @@
         "system.xml.xdocument.4.0.11.nupkg.sha512",
         "system.xml.xdocument.nuspec"
       ]
+    },
+    "CarReader/1.0.0": {
+      "type": "project",
+      "path": "../CarReader/CarReader.csproj",
+      "msbuildProject": "../CarReader/CarReader.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net6.0": [
+      "CarReader >= 1.0.0",
       "Microsoft.NET.Test.Sdk >= 16.11.0",
       "NUnit >= 3.13.2",
       "NUnit3TestAdapter >= 4.0.0",
@@ -3849,7 +3865,11 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "D:\\MyC#\\Tests\\Cars\\CarReader\\CarReader.csproj": {
+              "projectPath": "D:\\MyC#\\Tests\\Cars\\CarReader\\CarReader.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
