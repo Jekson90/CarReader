@@ -4,6 +4,10 @@ using System.Xml.Serialization;
 
 namespace CarReader.Readers
 {
+    /// <summary>
+    /// Type for reading XML files which contains any type of ICar interface.
+    /// </summary>
+    /// <typeparam name="T">Type of object for read/write</typeparam>
     [XmlRoot("Document")]
     public sealed class XmlCarReader<T> : BaseCarReader<T> where T : ICar
     {
@@ -29,9 +33,11 @@ namespace CarReader.Readers
             Cars.Clear();
             Cars.AddRange(cars);
 
+            //set settings
             var xmlSettings = new XmlWriterSettings();
             xmlSettings.NewLineHandling = NewLineHandling.Entitize;
             xmlSettings.Indent = true;
+            //remove unnecessary information
             var xns = new XmlSerializerNamespaces();
             xns.Add("", "");
 
@@ -45,12 +51,8 @@ namespace CarReader.Readers
 
         protected override IEnumerable<T> Read()
         {
-            var xmlSettings = new XmlReaderSettings();
-            var xns = new XmlSerializerNamespaces();
-            xns.Add("", "");
-
             using (FileStream fs = new FileStream(FilePath, FileMode.Open))
-            using (var xmlReader = XmlReader.Create(fs, xmlSettings))
+            using (var xmlReader = XmlReader.Create(fs, new XmlReaderSettings()))
             {
                 XmlSerializer sr = new XmlSerializer(typeof(XmlCarReader<T>));
                 var result = sr.Deserialize(xmlReader) as XmlCarReader<T>;

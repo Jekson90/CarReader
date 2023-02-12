@@ -106,4 +106,11 @@ namespace CarReader.Readers
         }
         #endregion
     }
+
+    //Abstract class gives us unrepeatable code, generics give abstractions
+    //we can reuse all of CRUD functions in all implemented types and just override read and write methods
+    //all of it simplifies developing but it harder for understanding and debugging 
+    //For adding new reader for new type of file we need inherit this class, override read/write 
+    //methods, add new type to ReaderType enumeration and add it to factory
+    //It's very easy to add tests for new reader
 }

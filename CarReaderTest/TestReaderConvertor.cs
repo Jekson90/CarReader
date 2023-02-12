@@ -25,8 +25,7 @@ namespace CarReaderTest
             //write objects
             sourceReader.AddCars(cars);
             //convert data
-            var convertor = new FileConvertor(sourcePath, destinationPath);
-            convertor.Convert<Car>();
+            FileConvertor.Convert<Car>(sourcePath, destinationPath);
             //read converted data
             var destinationReader = ReaderFactory.GetCarReader<Car>(destinationType, destinationPath);
             var result = destinationReader.GetCars().ToList();
@@ -45,8 +44,22 @@ namespace CarReaderTest
             string sourcePath = TestHelper.GetPath("sourceEx." + sourceExtension);
             string destinationPath = TestHelper.GetPath("destinationEx." + destinationExtension);
             //convert data
-            var convertor = new FileConvertor(sourcePath, destinationPath);
-            Assert.Throws<ArgumentException>(() => convertor.Convert<Car>());
+            Assert.Throws<ArgumentException>(() => 
+                FileConvertor.Convert<Car>(sourcePath, destinationPath));
+        }
+
+        [Test]
+        public void TestUnsupportedType()
+        {
+            //supported file path
+            string file1 = "111.car";
+            //unsupported file path
+            string file2 = "111.txt";
+
+            //test second arg
+            Assert.Throws<ArgumentException>(() => FileConvertor.Convert<Car>(file1, file2));
+            //swap args
+            Assert.Throws<ArgumentException>(() => FileConvertor.Convert<Car>(file2, file1));
         }
     }
 }
