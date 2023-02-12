@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<project name="CarReader" default="release">
+
+	<property name="solution.filename" value="Cars.sln" />
+	<property name="base.dir" value="D:\MyC#\Tests\Cars\CarReader\" />
+    <property name="build.dir" value="${path::combine(base.dir, 'Output')}" />
+	<property name="nunit.path" value="D:\MyC#\Tests\Cars\CarReaderTest\bin\Debug\net6.0\CarReaderTest.dll" />
+	
+	<target name="release" depends="run-nunit">
+		<property name="build.config" value="release" />
+		<property name="build.dir" value="${path::combine(build.dir, 'Release')}" />
+		<echo message="config is ${build.config}, outputdir=${build.dir}" />
+	</target>
+	
+	<target name="run-nunit">
+		<exec program="${nunit.path}" verbose="true" failonerror="false">
+		</exec>
+	</target>
+</project>
